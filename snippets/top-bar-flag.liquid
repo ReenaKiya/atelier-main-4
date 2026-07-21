@@ -1,0 +1,28 @@
+{%- comment -%}
+  Renders a country flag from Shopify's static flag CDN.
+
+  Accepts:
+  - country: {Object} a localization country drop
+  - width: {Number} rendered width in px (flags are 4:3, so height is width * 0.75)
+
+  Usage:
+  {% render 'top-bar-flag', country: localization.country, width: 20 %}
+{%- endcomment -%}
+
+{%- liquid
+  assign flag_width = width | default: 20
+  assign flag_height = flag_width | times: 0.75 | round
+  assign flag_code = country.iso_code | downcase
+  assign flag_src = '//cdn.shopify.com/static/images/flags/' | append: flag_code | append: '.svg?width=' | append: flag_width
+-%}
+
+<span class="top-bar__flag">
+  <img
+    src="{{ flag_src }}"
+    srcset="{{ flag_src }} {{ flag_width }}w"
+    alt="{{ country.name | escape }}"
+    width="{{ flag_width }}"
+    height="{{ flag_height }}"
+    loading="lazy"
+  >
+</span>

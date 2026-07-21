@@ -1,0 +1,413 @@
+{%- liquid
+  assign bg = section.settings.background_color
+  assign fg = section.settings.text_color
+-%}
+
+<div
+  class="top-bar"
+  style="--tb-bg: {{ bg }}; --tb-text: {{ fg }};"
+>
+  <div class="top-bar__inner">
+    <!-- Left: language + country/currency selectors -->
+    <div class="top-bar__left">
+      {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}
+        <div class="top-bar__selector">
+          {%- form 'localization', class: 'top-bar__form' -%}
+            <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}" data-tb-locale-input>
+            <button type="button" class="top-bar__selector-btn" aria-expanded="false" data-tb-toggle>
+              <span class="top-bar__code">{{ localization.language.iso_code | downcase }}</span>
+              {% render 'top-bar-caret' %}
+            </button>
+            <ul class="top-bar__dropdown" data-tb-dropdown hidden>
+              {%- for language in localization.available_languages -%}
+                <li>
+                  <button
+                    type="submit"
+                    name="locale_code"
+                    value="{{ language.iso_code }}"
+                    class="top-bar__dropdown-item{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
+                    lang="{{ language.iso_code }}"
+                  >
+                    {{ language.endonym_name | capitalize }}
+                  </button>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_currency_selector and localization.available_countries.size > 1 -%}
+        <div class="top-bar__selector">
+          {%- form 'localization', class: 'top-bar__form' -%}
+            <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+            <button type="button" class="top-bar__selector-btn" aria-expanded="false" data-tb-toggle>
+              {% render 'top-bar-flag', country: localization.country, width: 20 %}
+              <span class="top-bar__code">{{ localization.country.currency.iso_code }}</span>
+              {% render 'top-bar-caret' %}
+            </button>
+            <ul class="top-bar__dropdown top-bar__dropdown--scroll" data-tb-dropdown hidden>
+              {%- for country in localization.available_countries -%}
+                <li>
+                  <button
+                    type="submit"
+                    name="country_code"
+                    value="{{ country.iso_code }}"
+                    class="top-bar__dropdown-item{% if country.iso_code == localization.country.iso_code %} is-active{% endif %}"
+                  >
+                    {% render 'top-bar-flag', country: country, width: 25 %}
+                    <span>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                  </button>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Center: announcement message -->
+    <div class="top-bar__message">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="top-bar__message-link">
+          {{ section.settings.announcement_text }}
+        </a>
+      {%- else -%}
+        {{ section.settings.announcement_text }}
+      {%- endif -%}
+    </div>
+
+    <!-- Right: social icons -->
+    <div class="top-bar__social">
+      {%- for link in section.blocks -%}
+        {%- if link.settings.url != blank -%}
+          <a
+            href="{{ link.settings.url }}"
+            class="top-bar__social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{ link.settings.platform }}"
+            {{ link.shopify_attributes }}
+          >
+            {% render 'top-bar-social-icon', platform: link.settings.platform %}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    document.querySelectorAll('[data-tb-toggle]').forEach(function (btn) {
+      var dropdown = btn.parentElement.querySelector('[data-tb-dropdown]');
+      if (!dropdown) return;
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var willOpen = dropdown.hidden;
+        // Close every other open dropdown first
+        document.querySelectorAll('[data-tb-dropdown]').forEach(function (d) {
+          d.hidden = true;
+          var b = d.parentElement.querySelector('[data-tb-toggle]');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+        dropdown.hidden = !willOpen;
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
+    });
+
+    document.addEventListener('click', function () {
+      document.querySelectorAll('[data-tb-dropdown]').forEach(function (d) {
+        d.hidden = true;
+        var b = d.parentElement.querySelector('[data-tb-toggle]');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
+
+{% stylesheet %}
+  .top-bar {
+    background: var(--tb-bg);
+    color: var(--tb-text);
+    font-size: 13px;
+    position: relative;
+    z-index: 60;
+  }
+
+  .top-bar__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 20px;
+  }
+
+  /* ---- Left selectors ---- */
+  .top-bar__left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-self: start;
+  }
+
+  .top-bar__selector {
+    position: relative;
+  }
+
+  .top-bar__form {
+    margin: 0;
+  }
+
+  .top-bar__selector-btn {
+    background: none;
+    border: none;
+    padding: 2px 0;
+    cursor: pointer;
+    color: var(--tb-text);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+
+  .top-bar__selector-btn:hover {
+    opacity: 0.75;
+  }
+
+  .top-bar__flag {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .top-bar__flag img {
+    display: block;
+    border-radius: 2px;
+  }
+
+  .top-bar__code {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .top-bar__caret {
+    transition: transform 0.2s ease;
+  }
+
+  .top-bar__selector-btn[aria-expanded='true'] .top-bar__caret {
+    transform: rotate(180deg);
+  }
+
+  .top-bar__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 180px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+    z-index: 100;
+  }
+
+  .top-bar__dropdown[hidden] {
+    display: none;
+  }
+
+  .top-bar__dropdown--scroll {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .top-bar__dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #222;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .top-bar__dropdown-item:hover {
+    background: #f4f4f4;
+  }
+
+  .top-bar__dropdown-item.is-active {
+    font-weight: 600;
+  }
+
+  /* ---- Center message ---- */
+  .top-bar__message {
+    justify-self: center;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .top-bar__message-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .top-bar__message-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ---- Right social ---- */
+  .top-bar__social {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-self: end;
+  }
+
+  .top-bar__social-link {
+    color: var(--tb-text);
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+  }
+
+  .top-bar__social-link:hover {
+    opacity: 0.7;
+  }
+
+  /* The glyphs ship with mixed viewBox ratios — a fixed box plus the SVG
+     default preserveAspectRatio fits each one without distorting it. */
+  .top-bar__social-link svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  /* ---- Responsive ---- */
+  @media screen and (max-width: 989px) {
+    .top-bar__social {
+      display: none;
+    }
+
+    .top-bar__inner {
+      grid-template-columns: auto 1fr;
+      padding: 8px 16px;
+    }
+
+    .top-bar__message {
+      justify-self: center;
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .top-bar__left {
+      display: none;
+    }
+
+    .top-bar__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Top Announcement Bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "🥳 ORIONZ B-DAY SALE - UPTO 40% OFF 🥳"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    },
+    {
+      "type": "header",
+      "content": "Selectors"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "label": "Show language selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "Show country / currency selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1560bd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "options": [
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "twitter", "label": "X / Twitter" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "whatsapp", "label": "WhatsApp" }
+          ],
+          "default": "facebook"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Announcement Bar",
+      "blocks": [
+        { "type": "social_link", "settings": { "platform": "facebook" } },
+        { "type": "social_link", "settings": { "platform": "twitter" } },
+        { "type": "social_link", "settings": { "platform": "linkedin" } },
+        { "type": "social_link", "settings": { "platform": "instagram" } },
+        { "type": "social_link", "settings": { "platform": "pinterest" } },
+        { "type": "social_link", "settings": { "platform": "youtube" } },
+        { "type": "social_link", "settings": { "platform": "whatsapp" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
