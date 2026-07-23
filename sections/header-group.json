@@ -7,9 +7,101 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-
-<<<<<<< HEAD
-=======
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "top_announcement_bar": {
+      "type": "top-announcement-bar",
+      "blocks": {
+        "social_facebook": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "url": "https://facebook.com/orionzjewels"
+          }
+        },
+        "social_twitter": {
+          "type": "social_link",
+          "settings": {
+            "platform": "twitter",
+            "url": "https://x.com/orionzjewels"
+          }
+        },
+        "social_linkedin": {
+          "type": "social_link",
+          "settings": {
+            "platform": "linkedin",
+            "url": "https://in.linkedin.com/company/orionz"
+          }
+        },
+        "social_instagram": {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "url": "https://instagram.com/orionzjewels"
+          }
+        },
+        "social_pinterest": {
+          "type": "social_link",
+          "settings": {
+            "platform": "pinterest",
+            "url": "https://pinterest.com/orionz"
+          }
+        },
+        "social_youtube": {
+          "type": "social_link",
+          "settings": {
+            "platform": "youtube",
+            "url": "https://www.youtube.com/@orionz.jewels"
+          }
+        },
+        "social_whatsapp": {
+          "type": "social_link",
+          "settings": {
+            "platform": "whatsapp",
+            "url": "https://api.whatsapp.com/send?phone=919821530396&text=Hello%20%21%20I%20have%20a%20question%20regarding%20one%20of%20your%20products"
+          }
+        }
+      },
+      "block_order": [
+        "social_facebook",
+        "social_twitter",
+        "social_linkedin",
+        "social_instagram",
+        "social_pinterest",
+        "social_youtube",
+        "social_whatsapp"
+      ],
+      "settings": {
+        "announcement_text": "🥳 ORIONZ B-DAY SALE - UPTO 40% OFF 🥳",
+        "announcement_link": "",
+        "show_language_selector": true,
+        "show_currency_selector": true,
+        "background_color": "#1560bd",
+        "text_color": "#ffffff",
+        "dropdown_name_color": "#1a9c78",
+        "dropdown_currency_color": "#e08a1e"
+      }
+    },
+    "custom_header_frtTfa": {
+      "type": "custom-header",
+      "settings": {
+        "logo": "shopify://shop_images/Orionz_Website_New_Black_Logo_2025_1000x222_91a78252-39ed-4279-b379-c32e7ddbb502.avif",
+        "search_placeholder": "Search the shiny things...",
+        "show_account": true,
+        "show_wishlist": true,
+        "wishlist_url": "",
+        "mobile_menu": "main-menu",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "border_color": "#eeeeee",
+        "accent_color": "#1560bd",
+        "logo_height": 40
+      }
+    },
+    "header_nav": {
+      "type": "header-navigation",
       "blocks": {
         "featured_product_01": {
           "type": "featured_product",
@@ -248,7 +340,6 @@
         "featured_product_25",
         "featured_product_26"
       ],
->>>>>>> 790c5ec (orionz header updated)
       "settings": {
         "menu": "monsterpiercing",
         "highlight_links": "New In, Limited Edition",
