@@ -5,65 +5,82 @@
 
 <div
   class="top-bar"
-  style="--tb-bg: {{ bg }}; --tb-text: {{ fg }};"
+  style="--tb-bg: {{ bg }}; --tb-text: {{ fg }}; --tb-name-color: {{ section.settings.dropdown_name_color }}; --tb-currency-color: {{ section.settings.dropdown_currency_color }};"
 >
   <div class="top-bar__inner">
     <!-- Left: language + country/currency selectors -->
-    <div class="top-bar__left">
-      {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}
-        <div class="top-bar__selector">
-          {%- form 'localization', class: 'top-bar__form' -%}
-            <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}" data-tb-locale-input>
-            <button type="button" class="top-bar__selector-btn" aria-expanded="false" data-tb-toggle>
-              <span class="top-bar__code">{{ localization.language.iso_code | downcase }}</span>
-              {% render 'top-bar-caret' %}
-            </button>
-            <ul class="top-bar__dropdown" data-tb-dropdown hidden>
-              {%- for language in localization.available_languages -%}
-                <li>
-                  <button
-                    type="submit"
-                    name="locale_code"
-                    value="{{ language.iso_code }}"
-                    class="top-bar__dropdown-item{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
-                    lang="{{ language.iso_code }}"
-                  >
-                    {{ language.endonym_name | capitalize }}
-                  </button>
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endform -%}
-        </div>
-      {%- endif -%}
+    <div class="d-none d-lg-block">
+      <div class="localization-dropdown">
+        {%- if section.settings.show_language_selector -%}
+          <div class="disclosure btn-group dropup">
+            {%- form 'localization', id: 'localization_form_language', class: 'shopify-localization-form' -%}
+              <div class="country-select-box">
+                <div class="detail-box lang-dropdown" tabindex="0">
+                  <div class="detail-summary country-dropdown-item cursor-pointer">
+                    <span class="country-name">{{ localization.language.iso_code | downcase }}</span>
+                    {% render 'top-bar-caret' %}
+                  </div>
+                  <div class="detail-expand lang-dropdown-expand country-dropdown-expand" style="display: none;">
+                    <ul class="list-unstyled country-list">
+                      {%- for language in localization.available_languages -%}
+                        <li class="country-list-item">
+                          <button
+                            type="submit"
+                            name="locale_code"
+                            id="language-{{ section.id }}-{{ forloop.index }}"
+                            value="{{ language.iso_code }}"
+                            class="custom-checkbox radio-box body-font{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
+                            lang="{{ language.iso_code }}"
+                          >
+                            <span>{{ language.endonym_name | capitalize }}</span>
+                          </button>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {%- endform -%}
+          </div>
+        {%- endif -%}
 
-      {%- if section.settings.show_currency_selector and localization.available_countries.size > 1 -%}
-        <div class="top-bar__selector">
-          {%- form 'localization', class: 'top-bar__form' -%}
-            <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
-            <button type="button" class="top-bar__selector-btn" aria-expanded="false" data-tb-toggle>
-              {% render 'top-bar-flag', country: localization.country, width: 20 %}
-              <span class="top-bar__code">{{ localization.country.currency.iso_code }}</span>
-              {% render 'top-bar-caret' %}
-            </button>
-            <ul class="top-bar__dropdown top-bar__dropdown--scroll" data-tb-dropdown hidden>
-              {%- for country in localization.available_countries -%}
-                <li>
-                  <button
-                    type="submit"
-                    name="country_code"
-                    value="{{ country.iso_code }}"
-                    class="top-bar__dropdown-item{% if country.iso_code == localization.country.iso_code %} is-active{% endif %}"
-                  >
-                    {% render 'top-bar-flag', country: country, width: 25 %}
-                    <span>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
-                  </button>
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endform -%}
-        </div>
-      {%- endif -%}
+        {%- if section.settings.show_currency_selector -%}
+          <div class="disclosure btn-group dropup">
+            {%- form 'localization', id: 'localization_form_currency', class: 'shopify-localization-form' -%}
+              <div class="country-select-box">
+                <div class="detail-box country-dropdown" tabindex="0">
+                  <div class="detail-summary country-dropdown-item cursor-pointer">
+                    {% render 'top-bar-flag', country: localization.country, width: 20 %}
+                    <span class="country-name">{{ localization.country.currency.iso_code }}</span>
+                    {% render 'top-bar-caret' %}
+                  </div>
+                  <div class="detail-expand country-dropdown-expand" style="display: none;">
+                    <ul class="list-unstyled country-list">
+                      {%- for country in localization.available_countries -%}
+                        <li class="country-list-item">
+                          <button
+                            type="submit"
+                            name="country_code"
+                            id="country-{{ section.id }}-{{ forloop.index }}"
+                            value="{{ country.iso_code }}"
+                            class="custom-checkbox radio-box body-font{% if country.iso_code == localization.country.iso_code %} is-active{% endif %}"
+                          >
+                            {% render 'top-bar-flag', country: country, width: 25 %}
+                            <span class="country-label">
+                              <span class="country-label__name">{{ country.name }}</span>
+                              <span class="country-label__currency">({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                            </span>
+                          </button>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+      </div>
     </div>
 
     <!-- Center: announcement message -->
@@ -99,30 +116,52 @@
 
 <script>
   (function () {
-    document.querySelectorAll('[data-tb-toggle]').forEach(function (btn) {
-      var dropdown = btn.parentElement.querySelector('[data-tb-dropdown]');
-      if (!dropdown) return;
+    // Guard: this section's inline script can be injected more than once
+    // (theme editor re-render, section group reload). Binding twice would make
+    // one click open then immediately close the panel — so bind exactly once.
+    if (window.__orionzTopBarInit) return;
+    window.__orionzTopBarInit = true;
 
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var willOpen = dropdown.hidden;
-        // Close every other open dropdown first
-        document.querySelectorAll('[data-tb-dropdown]').forEach(function (d) {
-          d.hidden = true;
-          var b = d.parentElement.querySelector('[data-tb-toggle]');
-          if (b) b.setAttribute('aria-expanded', 'false');
-        });
-        dropdown.hidden = !willOpen;
-        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    function closeAll(except) {
+      document.querySelectorAll('.top-bar .detail-box').forEach(function (box) {
+        if (box === except) return;
+        var panel = box.querySelector('.detail-expand');
+        if (panel) panel.style.display = 'none';
+        box.classList.remove('is-open');
       });
+    }
+
+    // Single delegated handler — timing-independent and survives DOM re-renders.
+    document.addEventListener('click', function (e) {
+      var summary = e.target.closest('.top-bar .detail-summary');
+      if (summary) {
+        var box = summary.closest('.detail-box');
+        var panel = box.querySelector('.detail-expand');
+        if (!panel) return;
+        e.stopPropagation();
+        var isOpen = box.classList.contains('is-open');
+        closeAll(box);
+        if (isOpen) {
+          panel.style.display = 'none';
+          box.classList.remove('is-open');
+        } else {
+          panel.style.display = 'block';
+          box.classList.add('is-open');
+        }
+        return;
+      }
+      // Click anywhere else (except inside an open panel) closes everything.
+      if (!e.target.closest('.top-bar .detail-expand')) closeAll(null);
     });
 
-    document.addEventListener('click', function () {
-      document.querySelectorAll('[data-tb-dropdown]').forEach(function (d) {
-        d.hidden = true;
-        var b = d.parentElement.querySelector('[data-tb-toggle]');
-        if (b) b.setAttribute('aria-expanded', 'false');
-      });
+    // Keyboard: the source markup gives .detail-box tabindex="0".
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var box = e.target.closest('.top-bar .detail-box');
+      if (!box || e.target !== box) return;
+      e.preventDefault();
+      var summary = box.querySelector('.detail-summary');
+      if (summary) summary.click();
     });
   })();
 </script>
@@ -133,7 +172,9 @@
     color: var(--tb-text);
     font-size: 13px;
     position: relative;
-    z-index: 60;
+    /* Above the sticky .custom-header (z-index 500) so the country dropdown,
+       which overlaps the header row, is not painted underneath it. */
+    z-index: 600;
   }
 
   .top-bar__inner {
@@ -145,63 +186,85 @@
   }
 
   /* ---- Left selectors ---- */
-  .top-bar__left {
+  /* Class names below mirror the source markup (Bootstrap-flavoured); this
+     theme ships none of that CSS, so every rule these need lives here. */
+  .top-bar .d-none {
+    display: none;
+  }
+
+  .top-bar .localization-dropdown {
     display: flex;
     align-items: center;
     gap: 18px;
     justify-self: start;
   }
 
-  .top-bar__selector {
+  .top-bar .disclosure,
+  .top-bar .btn-group {
     position: relative;
   }
 
-  .top-bar__form {
+  .top-bar .shopify-localization-form {
     margin: 0;
   }
 
-  .top-bar__selector-btn {
-    background: none;
-    border: none;
-    padding: 2px 0;
-    cursor: pointer;
-    color: var(--tb-text);
-    font-size: 13px;
+  .top-bar .detail-box {
+    position: relative;
+  }
+
+  .top-bar .detail-box:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .top-bar .detail-summary {
     display: flex;
     align-items: center;
     gap: 6px;
     line-height: 1;
+    color: var(--tb-text);
+    font-size: 13px;
   }
 
-  .top-bar__selector-btn:hover {
+  .top-bar .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .top-bar .detail-summary:hover {
     opacity: 0.75;
   }
 
-  .top-bar__flag {
+  .top-bar .country-name {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .top-bar .dropdown-caret {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .top-bar .detail-box.is-open .dropdown-caret {
+    transform: rotate(180deg);
+  }
+
+  .top-bar .countryflags {
     display: flex;
     align-items: center;
     flex-shrink: 0;
   }
 
-  .top-bar__flag img {
+  /* Belt and braces against the global `img { width: 100% }` in base.css */
+  .top-bar .countryflags img {
     display: block;
     border-radius: 2px;
+    max-width: none;
+    object-fit: contain;
   }
 
-  .top-bar__code {
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
-
-  .top-bar__caret {
-    transition: transform 0.2s ease;
-  }
-
-  .top-bar__selector-btn[aria-expanded='true'] .top-bar__caret {
-    transform: rotate(180deg);
-  }
-
-  .top-bar__dropdown {
+  /* .dropup in the source opened upward from a bottom-of-page bar. Anchored to
+     the top of the viewport the panel would be clipped, so it opens downward. */
+  .top-bar .detail-expand {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
@@ -209,22 +272,28 @@
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
-    list-style: none;
-    margin: 0;
-    padding: 6px 0;
     z-index: 100;
   }
 
-  .top-bar__dropdown[hidden] {
-    display: none;
-  }
-
-  .top-bar__dropdown--scroll {
+  .top-bar .country-dropdown-expand {
     max-height: 320px;
     overflow-y: auto;
   }
 
-  .top-bar__dropdown-item {
+  .top-bar .country-list {
+    margin: 0;
+    padding: 6px 0;
+  }
+
+  .top-bar .list-unstyled {
+    list-style: none;
+  }
+
+  .top-bar .country-list-item {
+    margin: 0;
+  }
+
+  .top-bar .country-list-item button {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -239,12 +308,29 @@
     white-space: nowrap;
   }
 
-  .top-bar__dropdown-item:hover {
+  .top-bar .country-list-item button:hover {
     background: #f4f4f4;
   }
 
-  .top-bar__dropdown-item.is-active {
+  /* Reference styling: green country name, amber currency */
+  .top-bar .country-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .top-bar .country-label__name {
+    color: var(--tb-name-color);
     font-weight: 600;
+  }
+
+  .top-bar .country-label__currency {
+    color: var(--tb-currency-color);
+  }
+
+  .top-bar .country-list-item button.is-active .country-label__name {
+    text-decoration: underline;
   }
 
   /* ---- Center message ---- */
@@ -291,29 +377,26 @@
   }
 
   /* ---- Responsive ---- */
+  /* d-lg-block: the source's "show from the large breakpoint up" utility */
+  @media screen and (min-width: 990px) {
+    .top-bar .d-lg-block {
+      display: block;
+    }
+  }
+
+  /* Below lg the selectors stay hidden by .d-none, so the message centres alone */
   @media screen and (max-width: 989px) {
     .top-bar__social {
       display: none;
     }
 
     .top-bar__inner {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 1fr;
       padding: 8px 16px;
     }
 
     .top-bar__message {
-      justify-self: center;
       font-size: 12px;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    .top-bar__left {
-      display: none;
-    }
-
-    .top-bar__inner {
-      grid-template-columns: 1fr;
     }
   }
 {% endstylesheet %}
@@ -365,6 +448,18 @@
       "id": "text_color",
       "label": "Text",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_name_color",
+      "label": "Dropdown country name",
+      "default": "#1a9c78"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_currency_color",
+      "label": "Dropdown currency (INR ₹)",
+      "default": "#e08a1e"
     }
   ],
   "blocks": [

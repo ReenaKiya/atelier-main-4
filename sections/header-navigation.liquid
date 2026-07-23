@@ -10,13 +10,38 @@
   }
 </script>
 
+{%- liquid
+  assign highlight_raw = section.settings.highlight_links | default: ''
+  assign highlight_list = highlight_raw | downcase | split: ','
+-%}
+
 <header class="site-header site-header-nav--open" role="banner" data-site-header="" data-nav-header-sticky="">
-  <div class="site-navigation-wrapper site-navigation--has-actions site-header--full-width" data-site-navigation="" id="site-header-nav">
+  <div
+    class="site-navigation-wrapper site-navigation--has-actions site-header--full-width{% unless section.settings.show_dropdown_arrows %} navmenu--no-arrows{% endunless %}"
+    data-site-navigation=""
+    id="site-header-nav"
+    style="
+      --nav-link-color: {{ section.settings.link_color }};
+      --nav-accent: {{ section.settings.accent_color }};
+      --nav-link-size: {{ section.settings.link_font_size }}px;
+      --nav-link-gap: {{ section.settings.link_spacing }}px;
+    "
+  >
     <nav class="site-navigation" aria-label="Main">
       <ul class="navmenu navmenu-depth-1" data-navmenu="" aria-label="Menu Hierarchy" style="display:flex;align-items:center;height:auto;margin:0;">
 
         {% for link in linklists[section.settings.menu].links %}
           {% assign link_handle = link.title | handleize %}
+
+          {% comment %} Links named in "Highlighted links" render in the accent colour {% endcomment %}
+          {% assign link_title_key = link.title | downcase | strip %}
+          {% assign is_highlight = false %}
+          {% for highlight in highlight_list %}
+            {% assign highlight_key = highlight | strip %}
+            {% if highlight_key == link_title_key %}
+              {% assign is_highlight = true %}
+            {% endif %}
+          {% endfor %}
 
           {% if link.links.size > 0 %}
             {% comment %} ========== MEGA MENU ITEM ========== {% endcomment %}
@@ -28,7 +53,7 @@
                 data-navmenu-parent=""
                 style="display:flex;align-items:center;padding-top:0;height:auto;--menu-closed-height:0;">
               <details data-navmenu-details="">
-                <summary class="navmenu-link navmenu-link-depth-1 navmenu-link-parent"
+                <summary class="navmenu-link navmenu-link-depth-1 navmenu-link-parent{% if is_highlight %} navmenu-link--highlight{% endif %}"
                          aria-haspopup="true"
                          aria-expanded="false"
                          data-href="{{ link.url }}">
@@ -175,7 +200,7 @@
           {% else %}
             {% comment %} ========== SIMPLE LINK ========== {% endcomment %}
             <li class="navmenu-item navmenu-basic__item navmenu-id-{{ link_handle }}" style="display:flex;align-items:center;padding-top:0;height:auto;">
-              <a class="navmenu-link navmenu-link-depth-1" href="{{ link.url }}">{{ link.title }}</a>
+              <a class="navmenu-link navmenu-link-depth-1{% if is_highlight %} navmenu-link--highlight{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
             </li>
           {% endif %}
         {% endfor %}
@@ -320,13 +345,13 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 16px 18px;
-    color: #da1e37 !important;
+    padding: 16px calc(var(--nav-link-gap, 18px) / 2);
+    color: var(--nav-link-color, #000000);
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: capitalize;
-    letter-spacing: 0.5px;
+    font-size: var(--nav-link-size, 13px);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     white-space: nowrap;
     transition: color 0.2s ease;
     cursor: pointer;
@@ -335,7 +360,17 @@
   }
 
   .navmenu-link:hover {
-    color: #da1e37;
+    color: var(--nav-accent, #1560bd);
+  }
+
+  /* Links listed in "Highlighted links" — e.g. NEW IN, LIMITED EDITION */
+  .navmenu-link--highlight {
+    color: var(--nav-accent, #1560bd);
+  }
+
+  /* Reference header shows no dropdown carets */
+  .navmenu--no-arrows .navmenu-icon {
+    display: none;
   }
 
   /* Summary element reset */
@@ -392,7 +427,7 @@
     top: 100% !important;
     left: 50% !important;
     transform: translateX(-50%);
-    width: 60% !important;
+    width: 100% !important;
     z-index: 9999;
   }
 
@@ -446,11 +481,11 @@
   .multi-col-category-link:hover,
   .multi-col-category-link.active {
     background: #fff;
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
   }
 
   .multi-col-category-link.active {
-    border-right: 2px solid #da1e37;
+    border-right: 2px solid var(--nav-accent, #da1e37);
   }
 
   .multi-col-category-text {
@@ -469,7 +504,7 @@
 
   .multi-col-category-link:hover .multi-col-category-arrow,
   .multi-col-category-link.active .multi-col-category-arrow {
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
   }
 
   /* Middle column: Submenus */
@@ -502,12 +537,12 @@
   }
 
   .multi-col-submenu-link:hover {
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
   }
 
   .multi-col-submenu-link--view-all {
     font-weight: 600;
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
     margin-top: 15px;
     grid-column: 1 / -1;
   }
@@ -583,14 +618,14 @@
   .multi-col-featured-price {
     font-size: 14px;
     font-weight: 600;
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
     display: block;
     margin-bottom: 5px;
   }
 
   .multi-col-featured-cta {
     font-size: 13px;
-    color: #da1e37;
+    color: var(--nav-accent, #da1e37);
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -663,6 +698,55 @@
       "label": "Main Menu",
       "default": "main-menu",
       "info": "Select the navigation menu. Manage links in Admin > Navigation."
+    },
+    {
+      "type": "header",
+      "content": "Menu appearance"
+    },
+    {
+      "type": "text",
+      "id": "highlight_links",
+      "label": "Highlighted links",
+      "default": "New In, Limited Edition",
+      "info": "Comma-separated menu titles to show in the accent colour (e.g. New In, Limited Edition)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dropdown_arrows",
+      "label": "Show dropdown arrows",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "label": "Link font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "label": "Space between links",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / highlight color",
+      "default": "#1560BD"
     }
   ],
   "blocks": [
