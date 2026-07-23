@@ -103,7 +103,7 @@
     "header_nav": {
       "type": "header-navigation",
       "settings": {
-        "menu": "",
+        "menu": "orionz",
         "highlight_links": "New In, Limited Edition",
         "show_dropdown_arrows": false,
         "link_font_size": 13,
