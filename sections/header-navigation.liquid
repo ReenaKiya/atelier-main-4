@@ -83,9 +83,6 @@
                                class="multi-col-category-link{% if forloop.first %} active{% endif %}"
                                data-category-index="{{ forloop.index }}">
                               <span class="multi-col-category-text">{{ child_link.title }}</span>
-                              <svg class="multi-col-category-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:none;">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                              </svg>
                             </a>
                           </li>
                         {% endfor %}
@@ -495,14 +492,9 @@
     white-space: nowrap;
   }
 
-  .multi-col-category-link:hover,
-  .multi-col-category-link.active {
+  .multi-col-category-link:hover {
     background: #fff;
     color: var(--nav-accent, #da1e37);
-  }
-
-  .multi-col-category-link.active {
-    border-bottom: 2px solid var(--nav-accent, #da1e37);
   }
 
   .multi-col-category-text {
