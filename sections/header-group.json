@@ -13,6 +13,7 @@
   "sections": {
     "top_announcement_bar": {
       "type": "top-announcement-bar",
+<<<<<<< HEAD
       "blocks": {
         "social_facebook": {
           "type": "social_link",
@@ -102,246 +103,99 @@
     },
     "header_nav": {
       "type": "header-navigation",
+=======
+>>>>>>> f669c62b82da9939e5af72307ec2b449ac7437f8
       "blocks": {
-        "featured_product_01": {
-          "type": "featured_product",
+        "social_facebook": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Rings",
-            "product": "g23-titanium-classic-hinged-segment-clicker-ring"
+            "platform": "facebook",
+            "url": "https://facebook.com/orionzjewels"
           }
         },
-        "featured_product_02": {
-          "type": "featured_product",
+        "social_twitter": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Rings",
-            "product": "316l-surgical-steel-bcr-clicker-piercing-ring"
+            "platform": "twitter",
+            "url": "https://x.com/orionzjewels"
           }
         },
-        "featured_product_03": {
-          "type": "featured_product",
+        "social_linkedin": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Earrings",
-            "product": "925-sterling-silver-rhodium-plated-white-heart-halo-studs"
+            "platform": "linkedin",
+            "url": "https://in.linkedin.com/company/orionz"
           }
         },
-        "featured_product_04": {
-          "type": "featured_product",
+        "social_instagram": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Earrings",
-            "product": "925-sterling-silver-rhodium-plated-cz-cluster-clover-stud-earrings"
+            "platform": "instagram",
+            "url": "https://instagram.com/orionzjewels"
           }
         },
-        "featured_product_05": {
-          "type": "featured_product",
+        "social_pinterest": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Bracelets",
-            "product": "g23-titanium-captive-bead-ring"
+            "platform": "pinterest",
+            "url": "https://pinterest.com/orionz"
           }
         },
-        "featured_product_06": {
-          "type": "featured_product",
+        "social_youtube": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Bracelets",
-            "product": "g23-titanium-circular-barbell-with-double-prong-set-cz-gems"
+            "platform": "youtube",
+            "url": "https://www.youtube.com/@orionz.jewels"
           }
         },
-        "featured_product_07": {
-          "type": "featured_product",
+        "social_whatsapp": {
+          "type": "social_link",
           "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Pendants",
-            "product": "g23-titanium-opal-heart-jewelled-dermal-anchor"
-          }
-        },
-        "featured_product_08": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Pendants",
-            "product": "g23-titanium-solid-dermal-diver"
-          }
-        },
-        "featured_product_09": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Chains",
-            "product": "black-silicone-ear-tunnel"
-          }
-        },
-        "featured_product_10": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Chains",
-            "product": "g23-titanium-push-fit-bar-for-labret"
-          }
-        },
-        "featured_product_11": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Cufflinks",
-            "product": "eo-gas-sterilised-g23-titanium-externally-threaded-ball-top-labret"
-          }
-        },
-        "featured_product_12": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Cufflinks",
-            "product": "925-sterling-silver-round-cz-jewelled-threadless-flatback-stud"
-          }
-        },
-        "featured_product_13": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Gold Jewellery",
-            "product": "14k-gold-classic-hinged-segment-clicker-ring"
-          }
-        },
-        "featured_product_14": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Gold Jewellery",
-            "product": "9k-gold-classic-hinged-segment-clicker-ring-1"
-          }
-        },
-        "featured_product_15": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Rings",
-            "product": "14k-gold-classic-hinged-segment-clicker-ring"
-          }
-        },
-        "featured_product_16": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Rings",
-            "product": "g23-titanium-classic-hinged-segment-clicker-ring"
-          }
-        },
-        "featured_product_17": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Earrings",
-            "product": "925-sterling-silver-rhodium-plated-cz-cluster-clover-stud-earrings"
-          }
-        },
-        "featured_product_18": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Earrings",
-            "product": "316l-surgical-steel-internal-threaded-cartilage-helix-tragus-piercing-stud"
-          }
-        },
-        "featured_product_19": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Bracelets",
-            "product": "g23-titanium-captive-bead-ring"
-          }
-        },
-        "featured_product_20": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Bracelets",
-            "product": "316l-surgical-steel-classic-jewelled-curved-clicker-belly-ring"
-          }
-        },
-        "featured_product_21": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Necklaces",
-            "product": "g23-titanium-double-cz-jewelled-non-dangling-banana-belly-ring"
-          }
-        },
-        "featured_product_22": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Necklaces",
-            "product": "black-silicone-ear-tunnel"
-          }
-        },
-        "featured_product_23": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Pendants",
-            "product": "g23-titanium-opal-heart-jewelled-dermal-anchor"
-          }
-        },
-        "featured_product_24": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Pendants",
-            "product": "eo-sterilised-piercing-healing-disc"
-          }
-        },
-        "featured_product_25": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Jewellery Sets",
-            "product": "jojoba-healing-oil-roll-on-piercing-aftercare"
-          }
-        },
-        "featured_product_26": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "WOMEN'S",
-            "category_title": "Jewellery Sets",
-            "product": "jojoba-healing-oil-roll-on-piercing-aftercare-1"
+            "platform": "whatsapp",
+            "url": "https://api.whatsapp.com/send?phone=919821530396&text=Hello%20%21%20I%20have%20a%20question%20regarding%20one%20of%20your%20products"
           }
         }
       },
       "block_order": [
-        "featured_product_01",
-        "featured_product_02",
-        "featured_product_03",
-        "featured_product_04",
-        "featured_product_05",
-        "featured_product_06",
-        "featured_product_07",
-        "featured_product_08",
-        "featured_product_09",
-        "featured_product_10",
-        "featured_product_11",
-        "featured_product_12",
-        "featured_product_13",
-        "featured_product_14",
-        "featured_product_15",
-        "featured_product_16",
-        "featured_product_17",
-        "featured_product_18",
-        "featured_product_19",
-        "featured_product_20",
-        "featured_product_21",
-        "featured_product_22",
-        "featured_product_23",
-        "featured_product_24",
-        "featured_product_25",
-        "featured_product_26"
+        "social_facebook",
+        "social_twitter",
+        "social_linkedin",
+        "social_instagram",
+        "social_pinterest",
+        "social_youtube",
+        "social_whatsapp"
       ],
       "settings": {
-        "menu": "monsterpiercing",
+        "announcement_text": "🥳 ORIONZ B-DAY SALE - UPTO 40% OFF 🥳",
+        "announcement_link": "",
+        "show_language_selector": true,
+        "show_currency_selector": true,
+        "background_color": "#1560bd",
+        "text_color": "#ffffff",
+        "dropdown_name_color": "#1a9c78",
+        "dropdown_currency_color": "#e08a1e"
+      }
+    },
+    "custom_header_frtTfa": {
+      "type": "custom-header",
+      "settings": {
+        "logo": "shopify://shop_images/Orionz_Website_New_Black_Logo_2025_1000x222_91a78252-39ed-4279-b379-c32e7ddbb502.avif",
+        "search_placeholder": "Search the shiny things...",
+        "show_account": true,
+        "show_wishlist": true,
+        "wishlist_url": "",
+        "mobile_menu": "orionz",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "border_color": "#eeeeee",
+        "accent_color": "#1560bd",
+        "logo_height": 40
+      }
+    },
+    "header_nav": {
+      "type": "header-navigation",
+      "settings": {
+        "menu": "orionz",
         "highlight_links": "New In, Limited Edition",
         "show_dropdown_arrows": false,
         "link_font_size": 13,
