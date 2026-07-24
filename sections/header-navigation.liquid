@@ -93,6 +93,7 @@
                     <div class="multi-col-submenus">
                       {% for child_link in link.links %}
                         <div class="multi-col-submenu-panel{% if forloop.first %} active{% endif %}" data-submenu-panel="{{ forloop.index }}">
+                          <a href="{{ child_link.url }}" class="multi-col-submenu-heading">{{ child_link.title }}</a>
                           <div class="multi-col-submenu-grid">
                             {% for grandchild_link in child_link.links %}
                               <a href="{{ grandchild_link.url }}" class="multi-col-submenu-link">{{ grandchild_link.title }}</a>
@@ -492,11 +493,6 @@
     white-space: nowrap;
   }
 
-  .multi-col-category-link:hover {
-    background: #fff;
-    color: var(--nav-accent, #da1e37);
-  }
-
   .multi-col-category-text {
     flex: 1;
     display: flex;
@@ -516,24 +512,41 @@
     color: var(--nav-accent, #da1e37);
   }
 
-  /* Middle column: Submenus */
+  /* Middle column: Submenus — every category shown at once, side by side */
   .multi-col-submenus {
-    padding: 20px 30px;
+    padding: 24px 30px;
     background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px 44px;
   }
 
+  /* Each category is its own single-column group */
   .multi-col-submenu-panel {
-    display: none;
+    display: block;
+    min-width: 150px;
   }
 
-  .multi-col-submenu-panel.active {
+  .multi-col-submenu-heading {
     display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #111;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  .multi-col-submenu-heading:hover {
+    color: var(--nav-accent, #da1e37);
   }
 
   .multi-col-submenu-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .multi-col-submenu-link {
@@ -542,6 +555,7 @@
     font-size: 13px;
     padding: 6px 0;
     display: block;
+    width: 100%;
     transition: color 0.2s ease;
   }
 
@@ -553,7 +567,6 @@
     font-weight: 600;
     color: var(--nav-accent, #da1e37);
     margin-top: 15px;
-    grid-column: 1 / -1;
   }
 
   /* Right column: Featured */
