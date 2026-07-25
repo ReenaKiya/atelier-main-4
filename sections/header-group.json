@@ -102,6 +102,28 @@
     },
     "header_nav": {
       "type": "header-navigation",
+      "blocks": {
+        "featured_product_pCqzKd": {
+          "type": "featured_product",
+          "settings": {
+            "parent_menu_title": "MEN'S",
+            "category_title": "Rings",
+            "product": "14k-gold-classic-hinged-segment-clicker-ring"
+          }
+        },
+        "featured_product_zQAKd4": {
+          "type": "featured_product",
+          "settings": {
+            "parent_menu_title": "MEN'S",
+            "category_title": "Rings",
+            "product": "14k-gold-classic-double-ring-segment-clicker-ring"
+          }
+        }
+      },
+      "block_order": [
+        "featured_product_pCqzKd",
+        "featured_product_zQAKd4"
+      ],
       "settings": {
         "menu": "orionz",
         "highlight_links": "New In, Limited Edition",
