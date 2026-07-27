@@ -103,26 +103,21 @@
     "header_nav": {
       "type": "header-navigation",
       "blocks": {
-        "featured_product_pCqzKd": {
-          "type": "featured_product",
+        "featured_image_wTjpL9": {
+          "type": "featured_image",
           "settings": {
             "parent_menu_title": "MEN'S",
             "category_title": "Rings",
-            "product": "14k-gold-classic-hinged-segment-clicker-ring"
-          }
-        },
-        "featured_product_zQAKd4": {
-          "type": "featured_product",
-          "settings": {
-            "parent_menu_title": "MEN'S",
-            "category_title": "Rings",
-            "product": "14k-gold-classic-double-ring-segment-clicker-ring"
+            "collection": "earring-jewellery",
+            "heading": "Featured Collection",
+            "subtext": "",
+            "cta_text": "Shop Now",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "featured_product_pCqzKd",
-        "featured_product_zQAKd4"
+        "featured_image_wTjpL9"
       ],
       "settings": {
         "menu": "orionz",
