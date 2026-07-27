@@ -537,22 +537,21 @@
     color: var(--nav-accent, #da1e37);
   }
 
-  /* Right column: Featured */
+  /* Right column: Featured — two images side by side per row */
   .multi-col-featured {
     background: #fafafa;
     border-left: 1px solid #eee;
     padding: 20px;
-  }
-
-  /* Two featured items side by side per row */
-  .multi-col-featured-panel {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-content: start;
     gap: 18px 14px;
   }
 
-  .multi-col-featured-panel:not(:last-child) {
-    margin-bottom: 18px;
+  /* Panels are layout-transparent so featured items from every category flow
+     into the same two-column grid instead of each panel starting a new row */
+  .multi-col-featured-panel {
+    display: contents;
   }
 
   .multi-col-featured-item {
