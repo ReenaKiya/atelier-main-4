@@ -105,8 +105,6 @@
 
                     {% comment %} Right Column: Featured (images + products per category) {% endcomment %}
                     <div class="multi-col-featured">
-                      <p class="multi-col-featured-title">Featured</p>
-
                       {% for child_link in link.links %}
                         {% assign child_handle = child_link.title | handleize %}
                         <div class="multi-col-featured-panel{% if forloop.first %} active{% endif %}" data-featured-panel="{{ forloop.index }}">
@@ -409,7 +407,7 @@
 
   .multi-col-wrapper {
     display: grid;
-    grid-template-columns: 700px 1fr 360px;
+    grid-template-columns: 119px 1fr 606px;
     grid-template-areas:
       "submenus submenus featured";
     min-height: 350px;
@@ -544,15 +542,6 @@
     background: #fafafa;
     border-left: 1px solid #eee;
     padding: 20px;
-  }
-
-  .multi-col-featured-title {
-    font-size: 12px;
-    font-weight: 500;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 0 0 15px;
   }
 
   /* Two featured items side by side per row */
