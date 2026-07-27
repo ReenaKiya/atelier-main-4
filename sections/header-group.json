@@ -103,6 +103,19 @@
     "header_nav": {
       "type": "header-navigation",
       "blocks": {
+        "featured_image_d6jBFd": {
+          "type": "featured_image",
+          "settings": {
+            "parent_menu_title": "MEN'S",
+            "category_title": "Rings",
+            "image": "shopify://shop_images/MODELCLICKERSIZE_305x305-cover-2.avif",
+            "collection": "gold-hinged-clicker-ring",
+            "heading": "Featured Collection",
+            "subtext": "",
+            "cta_text": "Shop Now",
+            "link": "shopify://collections/gold-hinged-clicker-ring"
+          }
+        },
         "featured_image_wTjpL9": {
           "type": "featured_image",
           "settings": {
@@ -118,6 +131,7 @@
         }
       },
       "block_order": [
+        "featured_image_d6jBFd",
         "featured_image_wTjpL9"
       ],
       "settings": {
